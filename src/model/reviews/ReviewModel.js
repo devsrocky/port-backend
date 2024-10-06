@@ -8,7 +8,7 @@ const dataSchema = mongoose.Schema({
     ReviewDescription: {type: String, maxLength: 250},
     OrderId: {type: mongoose.Schema.Types.ObjectId},
     UserId: {type: mongoose.Schema.Types.ObjectId},
-    NichId: {type: mongoose.Schema.Types.ObjectId},
+    NicheId: {type: mongoose.Schema.Types.ObjectId},
     createdDate: {type: Date, default: Date.now()}
 
 }, {versionKey: false})
