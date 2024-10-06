@@ -1,10 +1,10 @@
 const  mongoose= require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
 
-const CommonListByNichService = async (Request, PortfolioModel) => {
+const CommonListByNichService = async (Request, DataModel) => {
     try{
         let tablink = new ObjectId(Request.params.tablink);
-        let data = await PortfolioModel.aggregate([
+        let data = await DataModel.aggregate([
             {
                 $facet: {
                     Total: [{$count: 'Total'}],
