@@ -43,14 +43,14 @@ exports.listOfReview = async (req, res) => {
 exports.reviewListByNich = async (req, res) => {
 
     try{
-        let tablink = new ObjectId(Request.params.tablink);
+        let tablink = new ObjectId(req.params.tablink);
         let JoinStage1 = {$lookup: {from: 'users', localField: 'UserId', foreignField: '_id', as: 'User'}}
         let JoinStage2 = {$lookup: {from: 'orders', localField: 'OrderId', foreignField: '_id', as: 'Order'}}
         let JoinStage3 = {$lookup: {from: 'niches', localField: 'NichId', foreignField: '_id', as: 'Nich'}}
 
         let Project = {$project: {_id: 1, StarCommunicate: 1, StarRecomend: 1, StarService: 1,createdDate: 1, 'User.fullName': 1, 'User.country': 1, 'User.userPhoto': 1, 'Order._id': 1, 'Order.OrderNumber': 1, 'Order.createdDate': 1, 'Nich._id': 1, 'Nich._id': 1, 'Nich.Name': 1, 'Nich.createdDate': 1}}
 
-        let data = await DataModel.aggregate([
+        let data = await ReviewModel.aggregate([
             {
                 $facet: {
                     Total: [{$count: 'Total'}],
@@ -64,9 +64,9 @@ exports.reviewListByNich = async (req, res) => {
                 }
             }
         ])
-        return {status: 'success', data: data}
+        res.status(200).json({status: 'success', data: data})
     }catch(err){
-        return {status: 'failed', data: err.toString()}
+        res.status(200).json({status: 'failed', data: err.toString()})
     }
 
     // let data = await CommonListByNichService(req, ReviewModel)
