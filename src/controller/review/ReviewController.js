@@ -7,6 +7,7 @@ const CommonUpdateService = require("../../service/common/CommonUpdateService")
 const ReviewService = require("../../service/review/ReviewService");
 const CommonDeleteByAdminService = require("../../service/common/CommonDeleteByAdminService");
 const CommonListJoin3ProjectionService = require("../../service/common/CommonListJoin3PorjectionService");
+const CommonListByNichService = require("../../service/common/CommonListByNichService");
 
 exports.CreateReview = async (req, res) => {
     let data = await ReviewService(req, ReviewModel)
@@ -37,6 +38,11 @@ exports.listOfReview = async (req, res) => {
     }catch(err){
         res.status(200).json({status: 'failed', data: err.toString()})
     }
+}
+
+exports.reviewListByNich = async (req, res) => {
+    let data = await CommonListByNichService(req, ReviewModel)
+    res.status(200).json(data)
 }
 
 exports.DeleteReview = async (req, res) => {

@@ -36,6 +36,7 @@ router.get('/deletePortfolio/:DeleteId',AuthVerification, ThemeController.delete
 router.post('/CreateReview', AuthVerification, ReviewController.CreateReview)
 router.post('/updateReview/:id', AuthVerification, ReviewController.updateReview)
 router.get('/listOfReview/:pageNo/:PerPage/:keyword', ReviewController.listOfReview)
+router.get('/reviewListByNich/:tablink', ReviewController.listOfReview)
 router.get('/DeleteReview/:DeleteId', AuthVerification, ReviewController.DeleteReview)
 
 
