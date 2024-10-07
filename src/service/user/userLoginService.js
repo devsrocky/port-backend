@@ -13,7 +13,7 @@ const userLoginService = async (Request, DataModel) => {
                 // Create token
                 let token = await EncodeToken(UserCount[0]['email'], UserCount[0]['mobile'], UserCount[0]['fullName'], UserCount[0]['userPhoto'], UserCount[0]['userRole'], UserCount[0]['_id'])
 
-                return {status: 'success', token:token}
+                return {status: 'success', token:token, UserDetails: UserCount[0]}
             }
             return {status: 'pending',  message: 'Before login approve your profile by email verification'}
         }else{
