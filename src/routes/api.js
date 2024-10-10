@@ -57,6 +57,7 @@ router.post('/userProfileVerification/:email/:otp', UserController.userProfileVe
 router.post('/userPassReset/:email/:otp', UserController.userPassReset)
 router.post('/userLogin', UserController.userLogin)
 router.post('/userUpdate', AuthVerification, UserController.userUpdate)
+router.get('/userProfileDetails',AuthVerification,  UserController.userProfileDetails)
 
 // RowWork path
 router.post('/createrowWordk', AuthVerification, RowWorckController.createrowWordk)
