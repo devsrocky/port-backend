@@ -21,7 +21,11 @@ const mongoose = require('mongoose')
 
 
 // security lib implement
-app.use(cors())
+app.use(cors(
+    {
+        origin: '*',
+    }
+))
 app.use(helmet())
 app.use(hpp())
 app.use(xss())
