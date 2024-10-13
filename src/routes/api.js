@@ -59,6 +59,9 @@ router.post('/userLogin', UserController.userLogin)
 router.post('/userUpdate', AuthVerification, UserController.userUpdate)
 router.get('/userProfileDetails',AuthVerification,  UserController.userProfileDetails)
 
+
+
+
 // RowWork path
 router.post('/createrowWordk', AuthVerification, RowWorckController.createrowWordk)
 router.post('/updaterowWork/:id', AuthVerification, RowWorckController.updaterowWork)
@@ -70,6 +73,7 @@ router.post('/createOrder', AuthVerification, orderController.createOrder)
 router.post('/updateOrder/:id', AuthVerification, orderController.updateOrder)
 router.get('/OrderList/:pageNo/:PerPage/:keyword', orderController.OrderList)
 router.get('/deleteOrder/:DeleteId', AuthVerification, orderController.deleteOrder)
+router.get('/orderListByUser', AuthVerification, orderController.orderListByUser)
 
 // Delivery path
 router.post('/createDelivery', AuthVerification, DeliveryController.createDelivery)

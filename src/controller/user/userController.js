@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const multer  = require('multer')
+
 const DataModel = require('../../model/user/UserModel')
 const OTPModel = require('../../model/otp/OTPModel')
 const userUpdateService = require('../../service/user/UpdateUser')
@@ -7,6 +9,9 @@ const userOTPVerificationService = require('../../service/user/userOTPVerificati
 const userLoginService = require('../../service/user/userLoginService')
 const CommonEmailVerifyService = require('../../service/common/CommonEmailVerifyService')
 const CommonDetailsService = require('../../service/common/CommonDetailsService')
+
+
+
 
 
 exports.userRegistration = async (req, res) => {
@@ -77,3 +82,4 @@ exports.userProfileDetails = async (req, res) => {
         res.status(200).json({status: 'failed', data: err.toString()})
     }
 }
+

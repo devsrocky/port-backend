@@ -47,3 +47,21 @@ exports.deleteOrder = async (req, res) => {
         res.status(200).json({status: 'success', message: 'The order has been deleted', data: deleted})
     }
 }
+
+exports.orderListByUser = async (req, res) => {
+    try{
+        let UserDetails = JSON.parse(req.headers['UserDetails'])
+
+        let orders = await DataModel.aggregate([
+            {$match: {UserEmail: UserDetails['UserEmail']}},
+            {$lookup: {from: 'rowworks', localField: 'RowWorkId', foreignField: '_id', as: 'RowWork'}},
+            {$unwind: '$RowWork'},
+            {$project: {_id: 1, OrderTitle: 1, NumberPage: 1, OrderPrice: 1, Reference: 1, OrderStatus: 1, DeliveryTime: 1, OrderNumber: 1, OrderRequirements: 1, 'RowWork.RowWorKTitle': 1, 'RowWork.RowWorKThumb': 1}}
+        ])
+
+        res.status(200).json({status: 'success', data: orders[0]})
+
+    }catch(err){
+        res.status(200).json({status: 'failed', data: err.toString()})
+    }
+}
