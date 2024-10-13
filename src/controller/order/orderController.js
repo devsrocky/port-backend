@@ -59,7 +59,7 @@ exports.orderListByUser = async (req, res) => {
             {$project: {_id: 1, OrderTitle: 1, NumberPage: 1, OrderPrice: 1, Reference: 1, OrderStatus: 1, DeliveryTime: 1, OrderNumber: 1, OrderRequirements: 1, 'RowWork.RowWorKTitle': 1, 'RowWork.RowWorKThumb': 1}}
         ])
 
-        res.status(200).json({status: 'success', data: orders[0]})
+        res.status(200).json({status: 'success', data: orders})
 
     }catch(err){
         res.status(200).json({status: 'failed', data: err.toString()})
