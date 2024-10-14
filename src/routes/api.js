@@ -17,6 +17,7 @@ const DeliveryController = require('../controller/delivery/deliveryController')
 router.post('/CreateHeroContent', AuthVerification, ThemeController.CreateHeroContent)
 router.post('/updateHeroContent/:id', AuthVerification, ThemeController.updateHeroContent)
 router.get('/listHeroContent/:pageNo/:perPage/:keyword', AuthVerification, ThemeController.listHeroContent)
+router.get('/HeroContentDetails/:id', ThemeController.HeroContentDetails)
 
 
 
