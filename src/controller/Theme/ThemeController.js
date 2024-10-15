@@ -88,7 +88,7 @@ exports.deleteNich = async (req, res) => {
         {$project: {_id: 0, userRole:1}}
     ])
 
-    if(user[0]['userRole'] === 'administrato'){
+    if(user[0]['userRole'] === 'administrator'){
         if(IsAssociateOrder){
             res.status(200).json({status: 'associated', data:'The nich is associated with order'})
         }else if(IsAssociateRowWork){
