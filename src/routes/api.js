@@ -26,6 +26,7 @@ router.post('/CreateNiche', AuthVerification, ThemeController.CreateNiche)
 router.post('/updateNiche/:id', AuthVerification, ThemeController.updateNiche)
 router.get('/listNiches/:pageNo/:perPage/:keyword', ThemeController.listNiches)
 router.get('/deleteNich/:DeleteId', AuthVerification, ThemeController.deleteNich)
+router.get('/NicheDetails/:id', AuthVerification, ThemeController.NicheDetails)
 
 router.post('/CreatePortfolio', AuthVerification, ThemeController.CreatePortfolio)
 router.post('/updatePortfolio/:id', AuthVerification, ThemeController.updatePortfolio)

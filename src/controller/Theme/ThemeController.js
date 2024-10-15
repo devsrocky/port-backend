@@ -102,6 +102,17 @@ exports.deleteNich = async (req, res) => {
     }
 }
 
+exports.NicheDetails = async (req, res) => {
+    try {
+        let id = req.params.id
+        let data = await NicheModel.aggregate([
+            {$match: {_id: new mongoose.Types.ObjectId(id)}}
+        ])
+        res.status(200).json({status: 'success', data: data})
+    } catch (err) {
+        res.status(200).json({status: 'failed', data: err.toString()})
+    }
+}
 
 // ---- Portfolios ----
 exports.CreatePortfolio = async (req, res) => {
