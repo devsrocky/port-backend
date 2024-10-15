@@ -30,7 +30,6 @@ exports.listHeroContent = async (req, res) => {
 
     let searchRegex = {"$regex": req.params.keyword, "$options": "i"}
     let SearchKeywords = {$or: [{Name: searchRegex}]}
-
     let data = await CommonListService(req, DataModel, SearchKeywords)
     res.status(200).json(data)
 
@@ -46,6 +45,11 @@ exports.HeroContentDetails = async (req, res) => {
     } catch (err) {
         res.status(200).json({status: 'failed', data: err.toString()})
     }
+}
+
+exports.deleteHeroContent = async (req, res) => {
+    let data = await CommonDeleteByAdminService(req, DataModel, UserModel)
+    res.status(200).json(data)
 }
 
 

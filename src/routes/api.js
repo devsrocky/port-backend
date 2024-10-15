@@ -18,6 +18,7 @@ router.post('/CreateHeroContent', AuthVerification, ThemeController.CreateHeroCo
 router.post('/updateHeroContent/:id', AuthVerification, ThemeController.updateHeroContent)
 router.get('/listHeroContent/:pageNo/:perPage/:keyword', AuthVerification, ThemeController.listHeroContent)
 router.get('/HeroContentDetails/:id', ThemeController.HeroContentDetails)
+router.get('/deleteHeroContent/:DeleteId',AuthVerification, ThemeController.HeroContentDetails)
 
 
 
