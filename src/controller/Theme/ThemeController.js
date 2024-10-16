@@ -151,3 +151,15 @@ exports.deletePortfolio = async (req, res) => {
     let data = await CommonDeleteByAdminService(req, PortfolioModel, UserModel)
     res.status(200).json(data)
 }
+
+exports.PortfolioDetails = async (req, res) => {
+    try {
+        let id = req.params.id
+        let data = await PortfolioModel.aggregate([
+            {$match: {_id: new mongoose.Types.ObjectId(id)}}
+        ])
+        res.status(200).json({status: 'success', data: data})
+    } catch (err) {
+        res.status(200).json({status: 'failed', data: err.toString()})
+    }
+}

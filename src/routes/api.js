@@ -33,6 +33,8 @@ router.post('/updatePortfolio/:id', AuthVerification, ThemeController.updatePort
 router.get('/listPortfolio/:pageNo/:PerPage/:keyword', ThemeController.listPortfolio)
 router.get('/portfolioListByNiche/:tablink', ThemeController.listByNiche)
 router.get('/deletePortfolio/:DeleteId',AuthVerification, ThemeController.deletePortfolio)
+router.get('/PortfolioDetails/:id', ThemeController.PortfolioDetails)
+
 
 
 // Reviews path
