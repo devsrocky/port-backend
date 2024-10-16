@@ -156,7 +156,11 @@ exports.PortfolioDetails = async (req, res) => {
     try {
         let id = req.params.id
         let data = await PortfolioModel.aggregate([
-            {$match: {_id: new mongoose.Types.ObjectId(id)}}
+            {$match: {_id: new mongoose.Types.ObjectId(id)}},
+            {$lookup: {from: 'niches', localField: 'NicheId', foreignField: '_id', as: 'Niche'}},
+            {$unwind: "$Niche"},{
+                $project: {_id: 1, ProjectName: 1, Description: 1, Template: 1, 'Niche._id': 1, 'Niche.Name': 1} 
+            }
         ])
         res.status(200).json({status: 'success', data: data})
     } catch (err) {
