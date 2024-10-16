@@ -76,9 +76,11 @@ exports.listNiches = async (req, res) => {
 
 exports.deleteNich = async (req, res) => {
 
+    try {
+        
     let DeleteId = req.params.DeleteId;
     let ObjectId = mongoose.Types.ObjectId;
-    let UserDetails = JSON.parse(Request.headers['UserDetails'])
+    let UserDetails = JSON.parse(req.headers['UserDetails'])
 
     let IsAssociateOrder = await CheckAssociation({RowWorkId: new ObjectId(DeleteId)}, OrderModel)
     let IsAssociateRowWork = await CheckAssociation({NicheId: new ObjectId(DeleteId)}, RowWordModel)
@@ -98,7 +100,11 @@ exports.deleteNich = async (req, res) => {
             res.status(200).json({status: 'success', message:'The nich has been deleted', data: data})
         }
     }else{
-        return {status: 'failed', message: 'You are not eligible'}
+        res.status(200).json({status: 'failed', message: 'You are not eligible'})
+    }
+
+    } catch (error) {
+        res.status(200).json({status: 'failed', data: error.toString()})
     }
 }
 

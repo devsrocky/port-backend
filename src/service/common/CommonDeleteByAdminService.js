@@ -5,7 +5,7 @@ const CommonDeleteByAdminService = async (Request, PortfolioModel, UserModel) =>
     try{
 
         let DeleteId = Request.params.DeleteId;
-        let UserDetails = JSON.parse(Request.headers['UserDetails']);
+        let UserDetails = Request.headers['UserDetails']
 
         let user = await UserModel.aggregate([
             {$match: {email: UserDetails['UserEmail']}}
@@ -17,6 +17,9 @@ const CommonDeleteByAdminService = async (Request, PortfolioModel, UserModel) =>
         }else{
             return {status: 'failed', message: 'You are not eligible'}
         }
+
+        return {status: 'success', data: UserDetails}
+
     }catch(err){
         return {status: 'failed', data: err.toString()}
     }
