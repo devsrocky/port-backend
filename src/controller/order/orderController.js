@@ -30,9 +30,45 @@ exports.OrderList = async (req, res) => {
     let SearchRegex = {"$regex": req.params.keyword, "$options": 'i'}
     let SearchKeywords = {$or: [{OrderTitle: SearchRegex}, {OrderPrice: SearchRegex}, {OrderStatus: SearchRegex}, {OrderNumber: SearchRegex}, {'RowWork.RowWorKTitle': SearchRegex}]}
     let JoinStage = {$lookup: {from: 'rowworks', localField: 'RowWorkId', foreignField: '_id', as: 'RowWork'}}
+    let Unwind = {$unwind: '$RowWork'}
 
-    let data = await CommonListJoinService(req, DataModel, SearchKeywords, JoinStage)
-    res.status(200).json(data)
+
+    try{
+        let pageNo = Number(req.params.pageNo)
+        let PerPage = Number(req.params.PerPage)
+        let SearchValue = req.params.keyword
+
+        // (5 - 1) * 5 
+        let RowSkip = (pageNo -1 )* PerPage;
+        let data;
+        if(SearchValue !== "0"){
+            data = await DataModel.aggregate([
+                JoinStage,
+                Unwind,
+                {$match: SearchKeywords},
+                {
+                    $facet: {
+                        Total: [{$count: 'Total'}],
+                        Rows: [{$skip: RowSkip}, {$limit: PerPage}]
+                    }
+                }
+            ])
+        }else{
+            data = await DataModel.aggregate([
+                JoinStage,
+                Unwind,
+                {
+                    $facet: {
+                        Total: [{$count: 'Total'}],
+                        Rows: [{$skip: RowSkip}, {$limit: PerPage}]
+                    }
+                }
+            ])
+        }
+        res.status(200).json({status: 'success', data: data})
+    }catch(err){
+        res.status(200).json({status: 'failed', data: err.toString()})
+    }
 
 }
 
