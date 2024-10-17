@@ -107,7 +107,7 @@ exports.deleteUserAccount = async (req, res) => {
             let data = await DataModel.deleteOne({_id: id})
             res.status(200).json({status: 'success', message: 'The user has been deleted', data: data})
         }else{
-            res.status(200).json({status: 'failed', message: 'You can\'t make remove yourself'})
+            res.status(200).json({status: 'admin', message: 'You can\'t make remove yourself'})
         }
     } catch (error) {
         res.status(200).json({status: 'failed', data: error.toString()})
