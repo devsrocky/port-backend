@@ -9,6 +9,7 @@ const userOTPVerificationService = require('../../service/user/userOTPVerificati
 const userLoginService = require('../../service/user/userLoginService')
 const CommonEmailVerifyService = require('../../service/common/CommonEmailVerifyService')
 const CommonDetailsService = require('../../service/common/CommonDetailsService')
+const CommonListService = require('../../service/common/CommonListService')
 
 
 
@@ -83,3 +84,9 @@ exports.userProfileDetails = async (req, res) => {
     }
 }
 
+exports.userList = async (req, res) => {
+    let searchRegex = {"$regex": req.params.keyword, "$options": "i"}
+    let SearchKeywords = {$or: [{fullName: searchRegex}, {address: searchRegex}, {country: searchRegex}]}
+    let data = await CommonListService(req, DataModel, SearchKeywords)
+    res.status(200).json(data)
+}

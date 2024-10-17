@@ -56,8 +56,8 @@ router.get('/deleteAppointment/:DeleteId', AuthVerification, appointmentControll
 // user path
 router.post('/userRegistration', UserController.userRegistration)
 router.get('/userEmailVerification/:email', UserController.userEmailVerification)
-
 router.post('/userProfileVerification/:email/:otp', UserController.userProfileVerification)
+router.get('/userList/:pageNo/:perPage/:keyword', UserController.userList)
 
 router.post('/userPassReset/:email/:otp', UserController.userPassReset)
 router.post('/userLogin', UserController.userLogin)
