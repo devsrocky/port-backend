@@ -60,7 +60,7 @@ router.post('/userProfileVerification/:email/:otp', UserController.userProfileVe
 router.get('/userList/:pageNo/:perPage/:keyword', UserController.userList)
 router.get('/userListByRole/:RoleText', UserController.userListByRole)
 router.get('/UserDetailsById/:id', UserController.UserDetailsById)
-router.get('/userUpdateByAdmin/:id', AuthVerification, UserController.userUpdateByAdmin)
+router.post('/userUpdateByAdmin/:id', AuthVerification, UserController.userUpdateByAdmin)
 router.get('/deleteUserAccount/:DeleteId', AuthVerification, UserController.deleteUserAccount)
 
 router.post('/userPassReset/:email/:otp', UserController.userPassReset)
