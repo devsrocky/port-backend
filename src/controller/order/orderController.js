@@ -31,8 +31,6 @@ exports.OrderList = async (req, res) => {
     let SearchKeywords = {$or: [{OrderTitle: SearchRegex}, {OrderPrice: SearchRegex}, {OrderStatus: SearchRegex}, {OrderNumber: SearchRegex}, {'RowWork.RowWorKTitle': SearchRegex}]}
     let JoinStage = {$lookup: {from: 'rowworks', localField: 'RowWorkId', foreignField: '_id', as: 'RowWork'}}
     let Unwind = {$unwind: '$RowWork'}
-
-
     try{
         let pageNo = Number(req.params.pageNo)
         let PerPage = Number(req.params.PerPage)
@@ -70,6 +68,32 @@ exports.OrderList = async (req, res) => {
         res.status(200).json({status: 'failed', data: err.toString()})
     }
 
+}
+
+exports.OrderListByStatus = async (req, res) => {
+    try{
+
+        let StatusTXT = req.params.StatusTXT;
+
+        let JoinStage = {$lookup: {from: 'rowworks', localField: 'RowWorkId', foreignField: '_id', as: 'RowWork'}}
+        let Unwind = {$unwind: '$RowWork'}
+        let data = await DataModel.aggregate([
+            {$match: {OrderStatus: StatusTXT}},
+            JoinStage,
+            Unwind,
+            {
+                $facet: {
+                    Total: [{$count: 'Total'}],
+                    Rows: [{$limit: 100}]
+                }
+            }
+            
+        ])
+        res.status(200).json({status: 'success', data: data})
+
+    }catch(err){
+        res.status(200).json({status: 'failed', data: err.toString()})
+    }
 }
 
 exports.deleteOrder = async (req, res) => {

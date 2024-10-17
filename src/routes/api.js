@@ -81,6 +81,7 @@ router.get('/deleteRowWork/:DeleteId', AuthVerification, RowWorckController.dele
 router.post('/createOrder', AuthVerification, orderController.createOrder)
 router.post('/updateOrder/:id', AuthVerification, orderController.updateOrder)
 router.get('/OrderList/:pageNo/:PerPage/:keyword', orderController.OrderList)
+router.get('/OrderListByStatus/:StatusTXT', orderController.OrderListByStatus)
 router.get('/deleteOrder/:DeleteId', AuthVerification, orderController.deleteOrder)
 router.get('/orderListByUser', AuthVerification, orderController.orderListByUser)
 
