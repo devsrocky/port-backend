@@ -10,6 +10,7 @@ const userLoginService = require('../../service/user/userLoginService')
 const CommonEmailVerifyService = require('../../service/common/CommonEmailVerifyService')
 const CommonDetailsService = require('../../service/common/CommonDetailsService')
 const CommonListService = require('../../service/common/CommonListService')
+const { json } = require('body-parser')
 
 
 
@@ -89,4 +90,26 @@ exports.userList = async (req, res) => {
     let SearchKeywords = {$or: [{fullName: searchRegex}, {address: searchRegex}, {country: searchRegex}]}
     let data = await CommonListService(req, DataModel, SearchKeywords)
     res.status(200).json(data)
+}
+
+exports.deleteUserAccount = async (req, res) => {
+    try {
+
+        const id = req.params.DeleteId;
+        let UserDetails = JSON.parse(req.headers['UserDetails'])
+        let role = await DataModel.aggregate([
+            {$match: {_id: new mongoose.Types.ObjectId(id)}}
+        ])
+
+        // console.log(UserDetails)
+
+        if(UserDetails['userRole'] === 'administrator' && role[0]['userRole'] !== 'administrator'){
+            let data = await DataModel.deleteOne({_id: id})
+            res.status(200).json({status: 'success', message: 'The user has been deleted', data: data})
+        }else{
+            res.status(200).json({status: 'failed', message: 'You can\'t make remove yourself'})
+        }
+    } catch (error) {
+        res.status(200).json({status: 'failed', data: error.toString()})
+    }
 }
