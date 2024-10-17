@@ -144,3 +144,23 @@ exports.deleteUserAccount = async (req, res) => {
         res.status(200).json({status: 'failed', data: error.toString()})
     }
 }
+
+exports.userUpdateByAdmin = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let PostBody = req.body;
+        let UserDetails = JSON.parse(req.headers['UserDetails'])
+        let UserCount = await DataModel.aggregate([
+            {$match: {_id: new mongoose.Types.ObjectId(UserDetails['user_id'])}}
+        ])
+        if(UserCount[0]['userRole'] === 'administrator'){
+            await DataModel.updateOne({_id: new mongoose.Types.ObjectId(id)}, {$set: PostBody})
+            res.status(200).json({status: 'success', data: 'User profile updat success'})
+        }else{
+            res.status(200).json({status: 'not', data: null})
+        }
+
+    } catch (error) {
+        res.status(200).json({status: 'failed', data: error.toString()})
+    }
+}
