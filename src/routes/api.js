@@ -58,6 +58,7 @@ router.post('/userRegistration', UserController.userRegistration)
 router.get('/userEmailVerification/:email', UserController.userEmailVerification)
 router.post('/userProfileVerification/:email/:otp', UserController.userProfileVerification)
 router.get('/userList/:pageNo/:perPage/:keyword', UserController.userList)
+router.get('/userListByRole/:RoleText', UserController.userListByRole)
 router.get('/deleteUserAccount/:DeleteId', AuthVerification, UserController.deleteUserAccount)
 
 router.post('/userPassReset/:email/:otp', UserController.userPassReset)

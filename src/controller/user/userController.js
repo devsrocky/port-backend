@@ -92,6 +92,24 @@ exports.userList = async (req, res) => {
     res.status(200).json(data)
 }
 
+exports.userListByRole = async (req, res) => {
+    try {
+        let RoleText = req.params.RoleText;
+        let data = await DataModel.aggregate([
+            {$match: {userRole: RoleText}},
+            {
+                $facet: {
+                    Total: [{$count: 'Total'}],
+                    Rows: [{$limit: Number(100)}]
+                }
+            }
+        ])
+        res.status(200).json({status: 'success', data: data})
+    } catch (error) {
+        res.status(200).json({status: 'failed', data: error})
+    }
+}
+
 exports.deleteUserAccount = async (req, res) => {
     try {
 
