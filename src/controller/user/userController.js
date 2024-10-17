@@ -92,6 +92,19 @@ exports.userList = async (req, res) => {
     res.status(200).json(data)
 }
 
+exports.UserDetailsById = async (req, res) => {
+    try {
+        let UserId = req.params.id;
+        let data = await DataModel.aggregate([
+            {$match: {_id: new mongoose.Types.ObjectId(UserId)}}
+        ])
+        res.status(200).json({status: 'success', data: data})
+        
+    } catch (error) {
+        res.status(200).json({status: 'failed', data: error.toString()})
+    }
+}
+
 exports.userListByRole = async (req, res) => {
     try {
         let RoleText = req.params.RoleText;
