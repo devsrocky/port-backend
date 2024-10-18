@@ -89,6 +89,7 @@ router.get('/OrderList/:pageNo/:PerPage/:keyword', orderController.OrderList)
 router.get('/OrderListByStatus/:StatusTXT', orderController.OrderListByStatus)
 router.get('/deleteOrder/:DeleteId', AuthVerification, orderController.deleteOrder)
 router.get('/orderListByUser', AuthVerification, orderController.orderListByUser)
+router.get('/orderDetails/:OrderId', AuthVerification, orderController.orderDetails)
 
 // Delivery path
 router.post('/createDelivery', AuthVerification, DeliveryController.createDelivery)

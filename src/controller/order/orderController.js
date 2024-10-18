@@ -125,3 +125,37 @@ exports.orderListByUser = async (req, res) => {
         res.status(200).json({status: 'failed', data: err.toString()})
     }
 }
+
+exports.orderDetails = async (req, res) => {
+    try {
+        let OrderId = req.params.OrderId;
+
+        let data = await DataModel.aggregate([
+            {$match: {_id: new mongoose.Types.ObjectId(OrderId)}},
+            {$lookup: {from: 'rowworks', localField: 'RowWorkId', foreignField: '_id', as: 'RowWork'}},
+            {$unwind: '$RowWork'},
+            {$lookup: {from: 'users', localField: 'BuyerId', foreignField: '_id', as: 'Buyer'}},
+            {$unwind: '$Buyer'},
+            {$project: {
+                _id: 0,
+                OrderTitle:1,
+                NumberPage:1,
+                DeliveryTime: 1,
+                Reference: 1,
+                OrderPrice:1,
+                OrderRequirements:1,
+                'RowWork._id':1,
+                'RowWork.RowWorKTitle':1,
+                'Buyer._id':1,
+                'Buyer.email':1,
+                'Buyer.fullName':1,
+                'Buyer.userPhoto': 1
+            }}
+
+        ])
+        res.status(200).json({status: 'success', data: data})
+
+    } catch (error) {
+        res.status(200).json({status: 'failed', data: error.toString()})
+    }
+}
