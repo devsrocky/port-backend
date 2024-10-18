@@ -10,6 +10,7 @@ const dataSchema = mongoose.Schema({
     DeliveryTime: {type: String},
     OrderNumber: {type: String, require: true},
     RowWorkId: {type: mongoose.Schema.Types.ObjectId},
+    BuyerId: {type: mongoose.Schema.Types.ObjectId},
     OrderRequirements: {type: String, maxLength: 5000},
     createdDate: {type: Date, default: Date.now()}
     

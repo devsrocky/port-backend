@@ -12,6 +12,7 @@ const appointmentController = require('../controller/appointment/appointmentCont
 const RowWorckController = require('../controller/RowWork/RowWorckController')
 const orderController = require('../controller/order/orderController')
 const DeliveryController = require('../controller/delivery/deliveryController')
+const BuyersController = require('../controller/Buyers/BuyersController')
 
 // Local path
 router.post('/CreateHeroContent', AuthVerification, ThemeController.CreateHeroContent)
@@ -62,6 +63,10 @@ router.get('/userListByRole/:RoleText', UserController.userListByRole)
 router.get('/UserDetailsById/:id', UserController.UserDetailsById)
 router.post('/userUpdateByAdmin/:id', AuthVerification, UserController.userUpdateByAdmin)
 router.get('/deleteUserAccount/:DeleteId', AuthVerification, UserController.deleteUserAccount)
+
+
+// Buyers
+router.get('/buyerList/:Keyword', BuyersController.buyerList)
 
 router.post('/userPassReset/:email/:otp', UserController.userPassReset)
 router.post('/userLogin', UserController.userLogin)
